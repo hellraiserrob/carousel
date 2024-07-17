@@ -90,7 +90,7 @@ a {
 
 .carousel {
   position: relative;
-  margin: 0 -10px;
+  // margin: 0 -10px;
 
   &__runner {
     display: flex;
@@ -134,7 +134,7 @@ a {
     opacity: 0.5;
     transition: all ease 0.2s;
     transform: scale(0.75, 0.75);
-    padding: 0 10px;
+    // padding: 0 10px;
 
     &--active {
       opacity: 1;
