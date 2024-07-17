@@ -83,6 +83,18 @@ a {
 .mb10 {
   margin-bottom: 10px;
 }
+
+.mb20 {
+  margin-bottom: 20px;
+}
+
+.mb30 {
+  margin-bottom: 30px;
+}
+
+.mb40 {
+  margin-bottom: 40px;
+}
 .mb50 {
   margin-bottom: 50px;
 }
@@ -97,6 +109,41 @@ a {
     width: 10000px
   }
 
+  &__pager {
+    margin-top: 10px;
+    text-align: center;
+
+    &__nav {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      background: #333;
+      border: 0;
+      text-indent: -6000px;
+      margin: 0 5px;
+      transition: all ease 0.2s;
+      cursor: pointer;
+
+      &--active {
+        background-color: #ccc;
+        width: 24px;
+        cursor: default;
+      }
+
+      &:hover {
+        background-color: #000;
+      }
+
+      &:focus {
+        outline: 4px blue solid;
+      }
+
+      &:disabled {
+        background: #ccc;
+      }
+    }
+  }
+
   &__nav {
     position: absolute;
     width: 50px;
@@ -104,14 +151,18 @@ a {
     line-height: 60px;
     top: 50%;
     transform: translateY(-50%);
-
+    cursor: pointer;
     border: 0;
-    background: #000;
+    background: #333;
     color: #fff;
     z-index: 1;
     font-size: 25px;
     transition: all ease 0.3s;
     
+    &:hover {
+      background: #000;
+    }
+
     &:disabled {
       background: #fff;
       color: #333;
@@ -133,8 +184,10 @@ a {
   &__slide {
     opacity: 0.5;
     transition: all ease 0.2s;
-    transform: scale(0.75, 0.75);
+    // transform: scale(0.75, 0.75);
     // padding: 0 10px;
+    display: flex;
+    flex-direction: column;
 
     &--active {
       opacity: 1;
@@ -143,11 +196,16 @@ a {
   }
 }
 
+.tile {
+  height: 100px;
+}
 
 .card {
   transition: opacity ease 0.6s;
   // padding: 0 16px;
-  // width: 300px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 
   &--active {
     opacity: 1;
@@ -155,10 +213,10 @@ a {
 
   &__style {
     background: #efefef;
-    border-radius: 5px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    flex: 1;
   }
 
   &__title {

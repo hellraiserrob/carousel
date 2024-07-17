@@ -1,23 +1,9 @@
-export interface Image {
-  src: string
-  aspect: string
+export interface Options {
+  el: HTMLElement,
+  grid: Grid[]
 }
 
-export interface Card {
-  title: string,
-  summary: string,
-  text: string
-  image?: Image
-}
-
-export interface Column {
-  id: number,
-  x: number,
-  y: number,
-}
-
-export interface Breakpoint {
-  threshold: number,
-  columns: number,
-  gutter: number,
+export interface Grid {
+  width: number,
+  items: number
 }

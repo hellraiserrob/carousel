@@ -1,8 +1,11 @@
-// import debounce from 'lodash/debounce';
+/**
+ * carousel class
+ * wrap different ui elements in generic carousel functioanlity
+ */
 
-import { getViewportWidth, getElementWidth } from './utils';
-
-// import InView from './in-view';
+import debounce from "lodash/debounce";
+import { getViewportWidth, getElementWidth } from "./utils";
+import { Grid } from "./interfaces";
 
 const css = {
   active: `carousel--active`,
@@ -24,7 +27,7 @@ const css = {
 
 export default class Carousel {
   el: HTMLElement;
-  grid: any;
+  grid: Grid[];
   prefix: string;
   els: any;
   offset: number;
@@ -55,10 +58,6 @@ export default class Carousel {
       count: this.el.querySelector(`.${css.count}`)
     };
 
-    // this.resizeHandler = debounce(() => {
-    //   this.resize();
-    // }, 500);
-
     this.offset = 0;
     this.clientX = 0;
     this.clientY = 0;
@@ -72,11 +71,11 @@ export default class Carousel {
     this.handeTouchMove = this.handeTouchMove.bind(this);
     this.handeTouchEnd = this.handeTouchEnd.bind(this);
     this.handeTouchCancel = this.handeTouchCancel.bind(this);
-
     this.handlePagerClick = this.handlePagerClick.bind(this);
+    this.resizeHandler = debounce(this.resizeHandler.bind(this), 100);
   }
 
-  resize() {
+  resizeHandler() {
     if (getViewportWidth() !== this.windowWidth) {
       this.setup();
     }
@@ -115,11 +114,7 @@ export default class Carousel {
     this.checkArrows();
     this.show();
     this.updateTabIndex();
-    // this.watch();
-
-    // if (!this.showPageNumbers) {
-    //   this.renderPager();
-    // }
+    this.renderPager();
 
     // this.updateProgress();
     // this.updateCount();
@@ -127,10 +122,6 @@ export default class Carousel {
   }
 
   reset() {
-    // need to refresh this incase caorusel markup has changed
-    this.els.slides = this.el.querySelectorAll(`.${css.slide}`);
-
-    // this.resetHeight();
     this.el.classList.remove(css.hint);
     this.el.classList.remove(css.active);
     this.els.runner.removeAttribute('style');
@@ -138,44 +129,6 @@ export default class Carousel {
     this.offset = 0;
     this.current = 1;
   }
-
-  resetHeight() {
-    this.els.slides.forEach(el => {
-      let blocker = el.querySelector(`.${css.blocker}`);
-      if (blocker) {
-        blocker.removeAttribute('style');
-      }
-    });
-  }
-
-  setHeight() {
-    let maxHeight = 0;
-
-    this.els.slides.forEach(el => {
-      const height = el.offsetHeight;
-
-      if (height > maxHeight) {
-        maxHeight = height;
-      }
-    });
-
-    this.els.slides.forEach(el => {
-      let blocker = el.querySelector(`.${css.blocker}`);
-      if (blocker) {
-        blocker.style.height = `${maxHeight}px`;
-      }
-    });
-  }
-
-  // watch() {
-  //   this.bindScroll(this.el, () => {
-  //     this.hint();
-  //   });
-  // }
-
-  // hint() {
-  //   this.el.classList.add(css.hint);
-  // }
 
   bind() {
     this.unbind();
@@ -187,7 +140,7 @@ export default class Carousel {
     this.els.runner.addEventListener('touchend', this.handeTouchEnd);
     this.els.runner.addEventListener('touchcancel', this.handeTouchCancel);
 
-    // window.addEventListener('resize', this.resizeHandler);
+    window.addEventListener('resize', this.resizeHandler);
   }
 
   unbind() {
@@ -198,7 +151,7 @@ export default class Carousel {
     this.els.runner.removeEventListener('touchend', this.handeTouchEnd);
     this.els.runner.removeEventListener('touchcancel', this.handeTouchCancel);
 
-    // window.removeEventListener('resize', this.resizeHandler);
+    window.removeEventListener('resize', this.resizeHandler);
   }
 
   handeTouchStart(e) {
@@ -299,11 +252,10 @@ export default class Carousel {
       // this.triggerScroll();
     });
 
-    // this.updatePager();
+    this.updatePager();
+    this.checkArrows();
     // this.updateProgress();
     // this.updateCount();
-
-    this.checkArrows();
   }
 
   checkArrows() {
@@ -332,12 +284,12 @@ export default class Carousel {
     `;
   }
 
-  animate(destination, duration = 500, cb, ease = 'ease') {
+  animate(destination, duration = 500, cb, ease = "ease") {
     const durationSeconds = duration / 1000;
     const transition = `all ${ease} ${durationSeconds}s`;
     const styles = this.getOffsetStyles(transition, destination);
 
-    this.els.runner.setAttribute('style', styles);
+    this.els.runner.setAttribute("style", styles);
 
     window.setTimeout(cb, duration);
     this.offset = destination;
@@ -345,7 +297,7 @@ export default class Carousel {
 
   updateTabIndex() {
     this.els.slides.forEach(slide => {
-      slide.querySelectorAll('button, a').forEach(el => {
+      slide.querySelectorAll("button, a").forEach(el => {
         el.setAttribute('tabIndex', -1);
       });
     });
@@ -376,7 +328,7 @@ export default class Carousel {
         i + 1 === this.current ? css.pagerNavActive : '';
       pager += `
         <button class="${css.pagerNav} ${classes}" data-id="${i +
-        1}">1</button>
+        1}">${i + 1}</button>
       `;
     }
 
@@ -399,10 +351,11 @@ export default class Carousel {
     if (this.els.pagerNav) {
       this.els.pagerNav.forEach(el => {
         el.classList.remove(css.pagerNavActive);
+        el.removeAttribute("disabled");
       });
-      this.els.pager
-        .querySelector(`.${css.pagerNav}:nth-child(${this.current})`)
-        .classList.add(css.pagerNavActive);
+      const active = this.els.pager.querySelector(`.${css.pagerNav}:nth-child(${this.current})`);
+      active.classList.add(css.pagerNavActive);
+      active.setAttribute("disabled", true)
     }
   }
 
@@ -421,12 +374,6 @@ export default class Carousel {
     const percent = this.current / this.totalPages * 100;
     this.els.progressBar.style.width = `${percent}%`;
   }
-
-  // triggerScroll() {
-  //   var e = document.createEvent('Event');
-  //   e.initEvent('scroll', true, true);
-  //   window.dispatchEvent(e);
-  // }
 
   show() {
     this.el.classList.add(css.active);
