@@ -106,20 +106,29 @@ section + section {
   margin-top: 50px;
 }
 
-
 .carousel {
-  // margin: 0 -10px;
+  margin: 0 -10px;
+  // opacity: 0;
+  
+  // &--active {
+  //   opacity: 1;
+  // }
+
   &__wrapper {
     position: relative;
   }
 
   &__runner {
     display: flex;
-    width: 10000px
+    width: 10000px;
   }
 
   &__pager {
-    margin-top: 10px;
+    margin: 10px 0 0 10px;
+
+    &--hide {
+      display: none;
+    }
 
     &__nav {
       display: inline-block;
@@ -196,8 +205,8 @@ section + section {
   &__slide {
     opacity: 0.5;
     transition: all ease 0.2s;
-    // transform: scale(0.75, 0.75);
-    // padding: 0 10px;
+    transform: scale(0.75, 0.75);
+    padding: 0 10px;
     display: flex;
     flex-direction: column;
 
@@ -286,17 +295,56 @@ section + section {
   }
 }
 
+.feature {
+  background: #efefef;
+  // border: 5px solid #000;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  
+  h1 {
+    font-size: 30px;
+    line-height: 30px;
+  }
+  
+  @media (min-width: 800px) {
+    padding: 50px;
+
+    h1 {
+      font-size: 70px;
+      line-height: 70px;
+    }
+  }
+
+  &__content {
+    flex: 1;
+    padding: 0 0 0 50px;
+  }
+
+  &__img {
+    flex-basis: 100px;
+  }
+
+  @media (min-width: 800px) {   
+    &__img {
+      flex-basis: 300px;
+    }
+  }
+
+  img {
+    width: 100%;
+  }
+}
+
 .button {
   border: 0;
-  border-radius: 25px;
   padding: 10px 30px;
   font-size: 18px;
   background: transparent;
-  // font-weight: 500;
   cursor: pointer;
   transition: background ease 0.2s;
-  // font-style: italic;
-  background-color: #efefef;
+  background-color: #fff;
 
   &:hover {
     background-color: #ddd;

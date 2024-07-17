@@ -5,7 +5,7 @@
 
 import debounce from "lodash/debounce";
 import { getViewportWidth, getElementWidth } from "./utils";
-import { Grid } from "./interfaces";
+import { Grid, Options } from "./interfaces";
 
 const css = {
   active: `carousel--active`,
@@ -15,9 +15,14 @@ const css = {
   slide: `carousel__slide`,
   slideActive: `carousel__slide--active`,
   pager: `carousel__pager`,
+  pagerHide: `carousel__pager--hide`,
   pagerNav: `carousel__pager__nav`,
   pagerNavActive: `carousel__pager__nav--active`,
   single: `carousel--single-page`,
+};
+
+const defaults = {
+  showPager: true  
 };
 
 export default class Carousel {
@@ -38,10 +43,12 @@ export default class Carousel {
   current: number;
   scroll: boolean;
   swipe: boolean;
+  options: Options;
 
   constructor(ops) {
-    this.el = ops.el;
-    this.grid = ops.grid;
+    this.options = {...defaults, ...ops}
+    this.el = this.options.el;
+    this.grid = this.options.grid;
 
     this.els = {
       previous: this.el.querySelector(`.${css.previous}`),
@@ -77,12 +84,14 @@ export default class Carousel {
   setup() {
     this.reset();
 
+    if(!this.options.showPager){
+      this.els.pager.classList.add(css.pagerHide);
+    }
+
     this.windowWidth = getViewportWidth();
     this.totalWidth = getElementWidth(this.el);
     this.totalSlides = this.els.slides.length;
     this.perPage = 0;
-
-    console.log(window.innerWidth);
 
     this.grid.forEach(breakpoint => {
       if (this.windowWidth >= breakpoint.width) {

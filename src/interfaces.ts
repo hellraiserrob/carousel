@@ -1,6 +1,7 @@
 export interface Options {
   el: HTMLElement,
-  grid: Grid[]
+  grid: Grid[],
+  showPager?: Boolean
 }
 
 export interface Grid {
