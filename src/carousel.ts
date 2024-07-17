@@ -9,7 +9,6 @@ import { Grid } from "./interfaces";
 
 const css = {
   active: `carousel--active`,
-  hint: `carousel--hint`,
   previous: `carousel__nav--previous`,
   next: `carousel__nav--next`,
   runner: `carousel__runner`,
@@ -18,10 +17,6 @@ const css = {
   pager: `carousel__pager`,
   pagerNav: `carousel__pager__nav`,
   pagerNavActive: `carousel__pager__nav--active`,
-  progress: `carousel__progress`,
-  progressBar: `carousel__progress__bar`,
-  blocker: `carousel__slide__blocker`,
-  count: `carousel__count`,
   single: `carousel--single-page`,
 };
 
@@ -53,9 +48,7 @@ export default class Carousel {
       next: this.el.querySelector(`.${css.next}`),
       runner: this.el.querySelector(`.${css.runner}`),
       slides: this.el.querySelectorAll(`.${css.slide}`),
-      pager: this.el.querySelector(`.${css.pager}`),
-      progressBar: this.el.querySelector(`.${css.progressBar}`),
-      count: this.el.querySelector(`.${css.count}`)
+      pager: this.el.querySelector(`.${css.pager}`)
     };
 
     this.offset = 0;
@@ -87,8 +80,9 @@ export default class Carousel {
     this.windowWidth = getViewportWidth();
     this.totalWidth = getElementWidth(this.el);
     this.totalSlides = this.els.slides.length;
-
     this.perPage = 0;
+
+    console.log(window.innerWidth);
 
     this.grid.forEach(breakpoint => {
       if (this.windowWidth >= breakpoint.width) {
@@ -115,14 +109,9 @@ export default class Carousel {
     this.show();
     this.updateTabIndex();
     this.renderPager();
-
-    // this.updateProgress();
-    // this.updateCount();
-    // this.setHeight();
   }
 
   reset() {
-    this.el.classList.remove(css.hint);
     this.el.classList.remove(css.active);
     this.els.runner.removeAttribute('style');
 
@@ -247,15 +236,10 @@ export default class Carousel {
 
     this.updateTabIndex();
 
-    this.animate(destination, 700, () => {
-      // this triggers any lazy loading assets
-      // this.triggerScroll();
-    });
+    this.animate(destination, 700, () => {});
 
     this.updatePager();
     this.checkArrows();
-    // this.updateProgress();
-    // this.updateCount();
   }
 
   checkArrows() {

@@ -7,8 +7,11 @@ body {
   line-height: 1.2em;
   color: #333;
   background: #fff;
-  overflow-x: hidden;
 }
+
+html, body {
+  overflow-x: hidden;
+} 
 
 body,
 button,
@@ -53,7 +56,7 @@ a {
 
 #main {
   max-width: 1200px;
-  margin: 100px auto;
+  margin: 50px auto;
   padding: 0 20px;
 }
 
@@ -99,10 +102,16 @@ a {
   margin-bottom: 50px;
 }
 
+section + section {
+  margin-top: 50px;
+}
+
 
 .carousel {
-  position: relative;
   // margin: 0 -10px;
+  &__wrapper {
+    position: relative;
+  }
 
   &__runner {
     display: flex;
@@ -111,7 +120,6 @@ a {
 
   &__pager {
     margin-top: 10px;
-    text-align: center;
 
     &__nav {
       display: inline-block;
@@ -120,9 +128,13 @@ a {
       background: #333;
       border: 0;
       text-indent: -6000px;
-      margin: 0 5px;
+      margin: 0;
       transition: all ease 0.2s;
       cursor: pointer;
+
+      & + & {
+        margin-left: 5px;
+      }
 
       &--active {
         background-color: #ccc;
@@ -197,7 +209,14 @@ a {
 }
 
 .tile {
-  height: 100px;
+  height: 150px;
+  line-height: 150px;
+  background: blue;
+  color: #fff;
+
+  text-align: center;
+  font-size: 50px;
+  font-weight: 500;
 }
 
 .card {

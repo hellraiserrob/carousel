@@ -1,197 +1,272 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Carousel</title>
 
-    <script type="module" src="/src/index.ts" defer></script>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carousel</title>
 
-  <body>
-    <div id="app">
-      <div id="main">
-        <div class="header mb50">
-          <img src="/images/logo.svg" width="70" alt="" />
-          <h1 class="mb10">Carousel</h1>
-          <h2>A minimal, but essential carousel component</h2>
-        </div>
+  <script type="module" src="/src/index.ts" defer></script>
+</head>
 
-        <h2>Examples</h2>
-        <h3 class="mb20">Simple example</h3>
+<body>
+  <div id="app">
+    <div id="main">
+      <div class="header mb50">
+        <img src="/images/logo.svg" width="70" alt="" />
+        <h1 class="mb10">Carousel</h1>
+        <h2>A minimal, but essential carousel component</h2>
+      </div>
 
-        <div class="carousel">
-          <button class="carousel__nav carousel__nav--previous" disabled> &lsaquo; </button>
-          <button class="carousel__nav carousel__nav--next"> &rsaquo; </button>
+      <section>
+        <h2>Tiles examples</h2>
+        <h3 class="mb20">An example of some small tiles arranged from 1 on mobile to 8 on desktop</h3>
+        <div class="carousel carousel--tiles">
+          <div class="carousel__wrapper">
+            <button class="carousel__nav carousel__nav--previous" disabled> &lsaquo; </button>
+            <button class="carousel__nav carousel__nav--next"> &rsaquo; </button>
 
-          <div class="carousel__runner">
-            <div class="carousel__slide">
-              <div class="card">
-                <div class="card__style">
-                  <div class="card__title">
-                    <h2>Title goes here</h2>
-                    <h3>Summary text</h3>
-                  </div>
-                  <div class="card__image">
-                    <img src="/images/1.jpg" alt="" />
-                  </div>
-                  <div class="card__text">
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                  </div>
-                  <div class="card__actions">
-                    <button>Add</button>
-                    <button>Remove</button>
-                  </div>
-                </div>
+            <div class="carousel__runner">
+              <div class="carousel__slide">
+                <div class="tile">1</div>
               </div>
-              <!-- /card -->
-            </div>
-            <!-- /slide -->
-
-            <div class="carousel__slide">
-              <div class="card">
-                <div class="card__style">
-                  <div class="card__title">
-                    <h2>A title</h2>
-                    <h3>Summary</h3>
-                  </div>
-                  <div class="card__image">
-                    <img src="/images/1.jpg" alt="" />
-                  </div>
-                  <div class="card__text">
-                    Lorem ipsum dolor, consectetuer adipiscing elit.
-                  </div>
-                  <div class="card__actions">
-                    <button>Add</button>
-                  </div>
-                </div>
+              <div class="carousel__slide">
+                <div class="tile">2</div>
               </div>
-              <!-- /card -->
-            </div>
-            <!-- /slide -->
-
-            <div class="carousel__slide">
-              <div class="card">
-                <div class="card__style">
-                  <div class="card__title">
-                    <h2>Title goes here</h2>
-                    <h3>Summary text</h3>
-                  </div>
-                  <div class="card__image">
-                    <img src="/images/1.jpg" alt="" />
-                  </div>
-                  <div class="card__text">
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                  </div>
-                  <div class="card__actions">
-                    <button>Add</button>
-                    <button>Remove</button>
-                  </div>
-                </div>
+              <div class="carousel__slide">
+                <div class="tile">3</div>
               </div>
-              <!-- /card -->
-            </div>
-            <!-- /slide -->
-
-            <div class="carousel__slide">
-              <div class="card">
-                <div class="card__style">
-                  <div class="card__title">
-                    <h2>A title</h2>
-                    <h3>Summary</h3>
-                  </div>
-                  <div class="card__image">
-                    <img src="/images/1.jpg" alt="" />
-                  </div>
-                  <div class="card__text">
-                    Lorem ipsum dolor, consectetuer adipiscing elit.
-                  </div>
-                  <div class="card__actions">
-                    <button>Add</button>
-                  </div>
-                </div>
+              <div class="carousel__slide">
+                <div class="tile">4</div>
               </div>
-              <!-- /card -->
-            </div>
-            <!-- /slide -->
-
-            <div class="carousel__slide">
-              <div class="card">
-                <div class="card__style">
-                  <div class="card__title">
-                    <h2>Title goes here</h2>
-                    <h3>Summary text</h3>
-                  </div>
-                  <div class="card__image">
-                    <img src="/images/1.jpg" alt="" />
-                  </div>
-                  <div class="card__text">
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                  </div>
-                  <div class="card__actions">
-                    <button>Add</button>
-                    <button>Remove</button>
-                  </div>
-                </div>
+              <div class="carousel__slide">
+                <div class="tile">5</div>
               </div>
-              <!-- /card -->
-            </div>
-            <!-- /slide -->
-
-            
-            <div class="carousel__slide">
-              <div class="card">
-                <div class="card__style">
-                  <div class="card__title">
-                    <h2>A title</h2>
-                    <h3>Summary</h3>
-                  </div>
-                  <div class="card__image">
-                    <img src="/images/1.jpg" alt="" />
-                  </div>
-                  <div class="card__text">
-                    Lorem ipsum dolor, consectetuer adipiscing elit.
-                  </div>
-                  <div class="card__actions">
-                    <button>Add</button>
-                  </div>
-                </div>
+              <div class="carousel__slide">
+                <div class="tile">6</div>
               </div>
-              <!-- /card -->
-            </div>
-            <!-- /slide -->
-
-            <div class="carousel__slide">
-              <div class="card">
-                <div class="card__style">
-                  <div class="card__title">
-                    <h2>Title goes here</h2>
-                    <h3>Summary text</h3>
-                  </div>
-                  <div class="card__image">
-                    <img src="/images/1.jpg" alt="" />
-                  </div>
-                  <div class="card__text">
-                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                  </div>
-                  <div class="card__actions">
-                    <button>Add</button>
-                    <button>Remove</button>
-                  </div>
-                </div>
+              <div class="carousel__slide">
+                <div class="tile">7</div>
               </div>
-              <!-- /card -->
+              <div class="carousel__slide">
+                <div class="tile">8</div>
+              </div>
+              <div class="carousel__slide">
+                <div class="tile">9</div>
+              </div>
+              <div class="carousel__slide">
+                <div class="tile">10</div>
+              </div>
+              <div class="carousel__slide">
+                <div class="tile">11</div>
+              </div>
+              <div class="carousel__slide">
+                <div class="tile">12</div>
+              </div>
+              <div class="carousel__slide">
+                <div class="tile">13</div>
+              </div>
+              <div class="carousel__slide">
+                <div class="tile">14</div>
+              </div>
+              <div class="carousel__slide">
+                <div class="tile">15</div>
+              </div>
+              <div class="carousel__slide">
+                <div class="tile">16</div>
+              </div>
+              <div class="carousel__slide">
+                <div class="tile">17</div>
+              </div>
             </div>
-            <!-- /slide -->
-
-            
+            <!-- /runner -->
           </div>
-          <!-- /runner -->
+          <div class="carousel__pager"></div>
+        </div>
+        <!-- / carousel-->
+      </section>
+
+      <section>
+        <h2>Cards example</h2>
+        <h3 class="mb20">An example of some larger cards arranged from 1 on mobile to 3 on desktop</h3>
+        <div class="carousel carousel--cards">
+
+          <div class="carousel__wrapper">
+            <button class="carousel__nav carousel__nav--previous" disabled> &lsaquo; </button>
+            <button class="carousel__nav carousel__nav--next"> &rsaquo; </button>
+
+            <div class="carousel__runner">
+              <div class="carousel__slide">
+                <div class="card">
+                  <div class="card__style">
+                    <div class="card__title">
+                      <h2>Title goes here</h2>
+                      <h3>Summary text</h3>
+                    </div>
+                    <div class="card__image">
+                      <img src="/images/1.jpg" alt="" />
+                    </div>
+                    <div class="card__text">
+                      Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+                    </div>
+                    <div class="card__actions">
+                      <button>Add</button>
+                      <button>Remove</button>
+                    </div>
+                  </div>
+                </div>
+                <!-- /card -->
+              </div>
+              <!-- /slide -->
+
+              <div class="carousel__slide">
+                <div class="card">
+                  <div class="card__style">
+                    <div class="card__title">
+                      <h2>A title</h2>
+                      <h3>Summary</h3>
+                    </div>
+                    <div class="card__image">
+                      <img src="/images/1.jpg" alt="" />
+                    </div>
+                    <div class="card__text">
+                      Lorem ipsum dolor, consectetuer adipiscing elit.
+                    </div>
+                    <div class="card__actions">
+                      <button>Add</button>
+                    </div>
+                  </div>
+                </div>
+                <!-- /card -->
+              </div>
+              <!-- /slide -->
+
+              <div class="carousel__slide">
+                <div class="card">
+                  <div class="card__style">
+                    <div class="card__title">
+                      <h2>Title goes here</h2>
+                      <h3>Summary text</h3>
+                    </div>
+                    <div class="card__image">
+                      <img src="/images/1.jpg" alt="" />
+                    </div>
+                    <div class="card__text">
+                      Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+                    </div>
+                    <div class="card__actions">
+                      <button>Add</button>
+                      <button>Remove</button>
+                    </div>
+                  </div>
+                </div>
+                <!-- /card -->
+              </div>
+              <!-- /slide -->
+
+              <div class="carousel__slide">
+                <div class="card">
+                  <div class="card__style">
+                    <div class="card__title">
+                      <h2>A title</h2>
+                      <h3>Summary</h3>
+                    </div>
+                    <div class="card__image">
+                      <img src="/images/1.jpg" alt="" />
+                    </div>
+                    <div class="card__text">
+                      Lorem ipsum dolor, consectetuer adipiscing elit.
+                    </div>
+                    <div class="card__actions">
+                      <button>Add</button>
+                    </div>
+                  </div>
+                </div>
+                <!-- /card -->
+              </div>
+              <!-- /slide -->
+
+              <div class="carousel__slide">
+                <div class="card">
+                  <div class="card__style">
+                    <div class="card__title">
+                      <h2>Title goes here</h2>
+                      <h3>Summary text</h3>
+                    </div>
+                    <div class="card__image">
+                      <img src="/images/1.jpg" alt="" />
+                    </div>
+                    <div class="card__text">
+                      Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+                    </div>
+                    <div class="card__actions">
+                      <button>Add</button>
+                      <button>Remove</button>
+                    </div>
+                  </div>
+                </div>
+                <!-- /card -->
+              </div>
+              <!-- /slide -->
+
+
+              <div class="carousel__slide">
+                <div class="card">
+                  <div class="card__style">
+                    <div class="card__title">
+                      <h2>A title</h2>
+                      <h3>Summary</h3>
+                    </div>
+                    <div class="card__image">
+                      <img src="/images/1.jpg" alt="" />
+                    </div>
+                    <div class="card__text">
+                      Lorem ipsum dolor, consectetuer adipiscing elit.
+                    </div>
+                    <div class="card__actions">
+                      <button>Add</button>
+                    </div>
+                  </div>
+                </div>
+                <!-- /card -->
+              </div>
+              <!-- /slide -->
+
+              <div class="carousel__slide">
+                <div class="card">
+                  <div class="card__style">
+                    <div class="card__title">
+                      <h2>Title goes here</h2>
+                      <h3>Summary text</h3>
+                    </div>
+                    <div class="card__image">
+                      <img src="/images/1.jpg" alt="" />
+                    </div>
+                    <div class="card__text">
+                      Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+                    </div>
+                    <div class="card__actions">
+                      <button>Add</button>
+                      <button>Remove</button>
+                    </div>
+                  </div>
+                </div>
+                <!-- /card -->
+              </div>
+              <!-- /slide -->
+
+
+            </div>
+            <!-- /runner -->
+          </div>
+
 
           <div class="carousel__pager"></div>
         </div>
         <!-- / carousel-->
-      </div>
+      </section>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>

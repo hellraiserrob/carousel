@@ -3,10 +3,32 @@ import "./main.scss";
 import Carousel from "./carousel"
 import { Options } from "./interfaces";
 
-const carousels = document.querySelectorAll<HTMLElement>(`.carousel`);
+const tiles = document.querySelectorAll<HTMLElement>(`.carousel--tiles`);
+const cards = document.querySelectorAll<HTMLElement>(`.carousel--cards`);
 
 
-carousels.forEach(el => {
+tiles.forEach(el => {
+  const options: Options = {
+    el,
+    grid: [{
+      width: 0,
+      items: 1
+    }, {
+      width: 700,
+      items: 2
+    }, {
+      width: 900,
+      items: 8
+    }
+    ]
+  };
+  const c = new Carousel(options)
+
+  c.setup();
+})
+
+
+cards.forEach(el => {
   const options: Options = {
     el,
     grid: [{
