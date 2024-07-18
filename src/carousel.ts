@@ -7,6 +7,8 @@ import debounce from "lodash/debounce";
 import { getViewportWidth, getElementWidth } from "./utils";
 import { Grid, Options } from "./interfaces";
 
+
+// css classes
 const css = {
   active: `carousel--active`,
   previous: `carousel__nav--previous`,
@@ -21,8 +23,9 @@ const css = {
   single: `carousel--single-page`,
 };
 
+// default options
 const defaults = {
-  showPager: true  
+  showPager: true
 };
 
 export default class Carousel {
@@ -46,10 +49,11 @@ export default class Carousel {
   options: Options;
 
   constructor(ops) {
-    this.options = {...defaults, ...ops}
+    this.options = { ...defaults, ...ops }
     this.el = this.options.el;
     this.grid = this.options.grid;
 
+    // cached html elements
     this.els = {
       previous: this.el.querySelector(`.${css.previous}`),
       next: this.el.querySelector(`.${css.next}`),
@@ -57,13 +61,6 @@ export default class Carousel {
       slides: this.el.querySelectorAll(`.${css.slide}`),
       pager: this.el.querySelector(`.${css.pager}`)
     };
-
-    this.offset = 0;
-    this.clientX = 0;
-    this.clientY = 0;
-    this.swipe = false;
-    this.scroll = false;
-    this.threshold = 75;
 
     this.handleNext = this.handleNext.bind(this);
     this.handlePrevious = this.handlePrevious.bind(this);
@@ -75,24 +72,30 @@ export default class Carousel {
     this.resizeHandler = debounce(this.resizeHandler.bind(this), 100);
   }
 
+  /**
+   * handle the user resizing the browser
+   */
   resizeHandler() {
     if (getViewportWidth() !== this.windowWidth) {
       this.setup();
     }
   }
 
+  /**
+   * setup tasks
+   */
   setup() {
     this.reset();
 
-    if(!this.options.showPager){
+    if (!this.options.showPager) {
       this.els.pager.classList.add(css.pagerHide);
     }
 
     this.windowWidth = getViewportWidth();
     this.totalWidth = getElementWidth(this.el);
     this.totalSlides = this.els.slides.length;
-    this.perPage = 0;
 
+    // evaluate the items to show per "page" based on viewport width
     this.grid.forEach(breakpoint => {
       if (this.windowWidth >= breakpoint.width) {
         this.perPage = breakpoint.items;
@@ -120,17 +123,28 @@ export default class Carousel {
     this.renderPager();
   }
 
+  /**
+   * reset / establish initial values
+   */
   reset() {
-    this.el.classList.remove(css.active);
-    this.els.runner.removeAttribute('style');
-
     this.offset = 0;
     this.current = 1;
+    this.offset = 0;
+    this.clientX = 0;
+    this.clientY = 0;
+    this.swipe = false;
+    this.scroll = false;
+    this.threshold = 75;
+    this.perPage = 0;
+
+    this.el.classList.remove(css.active);
+    this.els.runner.removeAttribute('style');
   }
 
+  /**
+   * add all event bindings
+   */
   bind() {
-    this.unbind();
-
     this.els.next.addEventListener('click', this.handleNext);
     this.els.previous.addEventListener('click', this.handlePrevious);
     this.els.runner.addEventListener('touchstart', this.handeTouchStart);
@@ -141,16 +155,9 @@ export default class Carousel {
     window.addEventListener('resize', this.resizeHandler);
   }
 
-  unbind() {
-    this.els.next.removeEventListener('click', this.handleNext);
-    this.els.previous.removeEventListener('click', this.handlePrevious);
-    this.els.runner.removeEventListener('touchstart', this.handeTouchStart);
-    this.els.runner.removeEventListener('touchmove', this.handeTouchMove);
-    this.els.runner.removeEventListener('touchend', this.handeTouchEnd);
-    this.els.runner.removeEventListener('touchcancel', this.handeTouchCancel);
-
-    window.removeEventListener('resize', this.resizeHandler);
-  }
+  /**
+   * touch handlers
+   */
 
   handeTouchStart(e) {
     this.clientX = e.touches[0].clientX;
@@ -186,6 +193,7 @@ export default class Carousel {
     const deltaX = e.changedTouches[0].clientX - this.clientX;
     const difference = Math.abs(deltaX);
 
+    // this catches faux swipes
     if (difference > this.threshold) {
       if (deltaX > 0) {
         if (this.current !== 1) {
@@ -212,6 +220,10 @@ export default class Carousel {
     this.resetOffset();
   }
 
+  /**
+   * basic page navigation
+   */
+
   handleNext(e) {
     e.preventDefault();
     this.next();
@@ -232,24 +244,9 @@ export default class Carousel {
     this.move();
   }
 
-  move() {
-    let offset = 0;
-
-    // are we on the last page
-    if (this.current === this.totalPages) {
-      const difference = this.totalSlides - this.perPage * this.totalPages;
-      offset = this.slideWidth * difference;
-    }
-
-    const destination = ((this.current - 1) * this.totalWidth * -1) - offset;
-
-    this.updateTabIndex();
-
-    this.animate(destination, 700, () => {});
-
-    this.updatePager();
-    this.checkArrows();
-  }
+  /**
+   * check whether to disable navigation arrows
+   */
 
   checkArrows() {
     this.checkPreviousArrow();
@@ -267,7 +264,28 @@ export default class Carousel {
   }
 
   resetOffset() {
-    this.animate(this.offset, 200, () => { });
+    this.animate(this.offset, 200);
+  }
+
+  /**
+   * generate styles to apply to the runner
+   */
+
+  move() {
+    let offset = 0;
+
+    // are we on the last page
+    if (this.current === this.totalPages) {
+      const difference = this.totalSlides - this.perPage * this.totalPages;
+      offset = this.slideWidth * difference;
+    }
+
+    const destination = ((this.current - 1) * this.totalWidth * -1) - offset;
+
+    this.updateTabIndex();
+    this.animate(destination, 700);
+    this.updatePager();
+    this.checkArrows();
   }
 
   getOffsetStyles(transition, destination) {
@@ -277,16 +295,19 @@ export default class Carousel {
     `;
   }
 
-  animate(destination, duration = 500, cb, ease = "ease") {
+  animate(destination, duration = 500) {
+    const ease = "ease";
     const durationSeconds = duration / 1000;
     const transition = `all ${ease} ${durationSeconds}s`;
     const styles = this.getOffsetStyles(transition, destination);
 
     this.els.runner.setAttribute("style", styles);
-
-    window.setTimeout(cb, duration);
     this.offset = destination;
   }
+
+  /**
+   * disable tabbing on interactive elements in elements not active
+   */
 
   updateTabIndex() {
     this.els.slides.forEach(slide => {
@@ -313,6 +334,9 @@ export default class Carousel {
     });
   }
 
+  /**
+   * loop out the pagination buttons
+   */
   renderPager() {
     let pager = '';
 
@@ -330,6 +354,10 @@ export default class Carousel {
     this.bindPagerClick();
   }
 
+  /**
+   * bindings for pagination buttons
+   */
+
   bindPagerClick() {
     this.els.pagerNav.forEach(el => {
       el.addEventListener('click', this.handlePagerClick);
@@ -339,6 +367,15 @@ export default class Carousel {
   handlePagerClick(e) {
     this.goTo(e.currentTarget.getAttribute('data-id'));
   }
+  
+  goTo(id) {
+    this.current = parseInt(id, 10);
+    this.move();
+  }
+
+  /**
+   * update pager active classes / disabled state
+   */
 
   updatePager() {
     if (this.els.pagerNav) {
@@ -350,22 +387,6 @@ export default class Carousel {
       active.classList.add(css.pagerNavActive);
       active.setAttribute("disabled", true)
     }
-  }
-
-  updateCount() {
-    if (this.els.count) {
-      this.els.count.innerHTML = `${this.current}/${this.totalPages}`;
-    }
-  }
-
-  goTo(id) {
-    this.current = parseInt(id, 10);
-    this.move();
-  }
-
-  updateProgress() {
-    const percent = this.current / this.totalPages * 100;
-    this.els.progressBar.style.width = `${percent}%`;
   }
 
   show() {

@@ -1,3 +1,7 @@
+/**
+ * entry point showing generic usage
+ */
+
 import "./main.scss";
 
 import Carousel from "./carousel"

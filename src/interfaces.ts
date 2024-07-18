@@ -1,3 +1,7 @@
+/**
+ * Carousel interfaces
+ */
+
 export interface Options {
   el: HTMLElement,
   grid: Grid[],
